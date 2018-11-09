@@ -24,7 +24,21 @@ namespace chtr
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors(s => s.AddPolicy("Cors", policy =>
+            {
+                //remove for production code..
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.WithOrigins("http://localhost:4200");
+                policy.AllowCredentials();
+            }));
+
+            services.AddSignalR(configuration =>
+            {
+                configuration.EnableDetailedErrors = true;
+            });
+
+            services.AddMvc();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -34,6 +48,12 @@ namespace chtr
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseCors("Cors");
+            app.UseSignalR(signalR =>
+            {
+              
+            });
 
             app.UseMvc();
         }
