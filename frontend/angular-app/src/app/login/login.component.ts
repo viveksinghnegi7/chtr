@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '../../../node_modules/@angular/router';
+import {UserService} from '../_services/userservice';
 
 @Component({
   selector: 'app-login',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  private user : string;
+
+  constructor(private router : Router, private userService : UserService) {
+  }
 
   ngOnInit() {
   }
 
+  onLogin() {
+    this.userService.setLoggedInUser(this.user);
+    this.router.navigate(['/chatoverview'])
+  }
 }

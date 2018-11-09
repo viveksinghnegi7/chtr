@@ -10,12 +10,14 @@ import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {MatButtonModule} from '@angular/material';
-
+import { ChatoverviewComponent } from './chatoverview/chatoverview.component';
+import {UserService} from './_services/userservice';
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ChatoverviewComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,9 @@ import {MatButtonModule} from '@angular/material';
     BrowserAnimationsModule,
     MatButtonModule
   ],
-  providers: [],
+  providers: [
+    UserService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
