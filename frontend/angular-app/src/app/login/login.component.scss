@@ -1,0 +1,39 @@
+div{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.mat-card {
+    width:300px;
+    height:350px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+}
+
+#loginBtn {
+    width: 100%;
+}
+
+#logo {
+    width: 70%;
+    z-index: 0;
+    height:auto;
+    margin: 20px auto;
+    grid-column: 1;
+    grid-row: 1;
+    justify-self: center;
+    align-self: center;
+}
+
+.signin-form {
+    grid-column: 1;
+    grid-row: 1;
+    margin: 50px 0px;
+    justify-self: center;
+    align-self: center;
+}
