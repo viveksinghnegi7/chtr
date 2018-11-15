@@ -12,7 +12,6 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {MatButtonModule} from '@angular/material';
 import { ChatoverviewComponent } from './chatoverview/chatoverview.component';
 import {UserService} from './_services/userservice';
-import { UiModule } from './ui/ui.module';
 
 @NgModule({
   declarations: [
@@ -28,8 +27,7 @@ import { UiModule } from './ui/ui.module';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatButtonModule,
-    UiModule
+    MatButtonModule
   ],
   providers: [
     UserService
