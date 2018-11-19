@@ -1,0 +1,19 @@
+.container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-color: deeppink;
+}
+
+.content {
+    flex: 1;,
+    overflow: hidden
+}
+
+.header {
+    background-color: yellow;
+}
+
+.footer {
+    background-color:blue;
+}
