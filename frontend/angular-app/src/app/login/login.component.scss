@@ -1,0 +1,15 @@
+.container {
+    display: flex;
+    min-height: 90vh;
+    align-items: center;
+    justify-content: center;
+}
+
+#logo {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-bottom: 15px;
+   
+}
