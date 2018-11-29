@@ -8,6 +8,7 @@ import { MatCardModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material';
 import { MatInputModule } from '@angular/material';
+import { MatToolbarModule } from '@angular/material'
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {MatButtonModule} from '@angular/material';
 import { ChatoverviewComponent } from './chatoverview/chatoverview.component';
@@ -38,7 +39,8 @@ import {APP_BASE_HREF} from '@angular/common';
     MatFormFieldModule,
     MatInputModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatToolbarModule
   ],
   providers: [
     UserService,
