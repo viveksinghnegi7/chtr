@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using chtr.server.Hubs;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -30,6 +31,11 @@ namespace chtr.server
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            app.UseSignalR(cfg =>
+            {
+                cfg.MapHub<ChatHub>("/Chat");
+            });
         }
     }
 }
