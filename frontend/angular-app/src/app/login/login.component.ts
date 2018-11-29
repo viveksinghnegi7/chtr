@@ -21,4 +21,8 @@ export class LoginComponent implements OnInit {
     this.userService.setLoggedInUser(this.user);
     this.router.navigate(['/chatoverview'])
   }
+
+  onUserChanged(userName : string){
+      this.user = userName;
+  }
 }
