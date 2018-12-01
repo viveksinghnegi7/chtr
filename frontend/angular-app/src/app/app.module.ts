@@ -13,6 +13,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {MatButtonModule} from '@angular/material';
 import { ChatoverviewComponent } from './chatoverview/chatoverview.component';
 import {UserService} from './_services/userservice';
+import {NotificationService} from './_services/notificationservice';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AppHeaderComponent } from './_layout/app-header/app-header.component';
@@ -44,7 +45,7 @@ import {APP_BASE_HREF} from '@angular/common';
   ],
   providers: [
     UserService,
-
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })
