@@ -26,7 +26,14 @@ namespace chtr.server
         {
             services.AddSignalR();
             services.AddMvc().AddControllersAsServices();
-
+            services.AddCors(s => s.AddPolicy("Cors", policy =>
+            {
+                //remove for production code..
+                policy.AllowAnyHeader();
+                policy.AllowAnyMethod();
+                policy.WithOrigins("http://localhost:4200");
+                policy.AllowCredentials();
+            }));
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ApplicationModule());
@@ -43,12 +50,15 @@ namespace chtr.server
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseCors("Cors");
+
             app.UseSignalR(cfg =>
             {
                 cfg.MapHub<ChatHub>("/Chat");
             });
 
             app.UseMvc();
+           
         }
     }
 }

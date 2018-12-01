@@ -20,6 +20,8 @@ import { AppHeaderComponent } from './_layout/app-header/app-header.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
 import { SiteFooterComponent } from './_layout/site-footer/site-footer.component';
 import {APP_BASE_HREF} from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import {HttpModule} from '@angular/http';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,9 @@ import {APP_BASE_HREF} from '@angular/common';
     MatInputModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule,
+    HttpModule
   ],
   providers: [
     UserService,

@@ -5,9 +5,9 @@ namespace chtr.server.Hubs
 {
     public class ChatHub : Hub
     {
-        public Task NotifyNewUser(string userName)
+        public async Task UserJoined(string userName)
         {
-            return Clients.All.SendAsync("NotifyNewUser", userName);
+           await Clients.All.SendAsync("NewUserJoined", userName);
         }
     }
 }

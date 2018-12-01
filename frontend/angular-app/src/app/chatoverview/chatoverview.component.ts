@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../_services/userservice';
+import {NotificationService} from '../_services/notificationservice';
 
 @Component({
   selector: 'app-chatoverview',
@@ -8,9 +9,9 @@ import {UserService} from '../_services/userservice';
 })
 export class ChatoverviewComponent implements OnInit {
 
-  constructor(userService : UserService) { }
+  constructor(userService : UserService, private notificationService : NotificationService) { }
 
   ngOnInit() {
-      
+      this.notificationService.registerUser("Tobias");
   }
 }
