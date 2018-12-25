@@ -7,6 +7,6 @@ namespace chtr.server.Contracts
 {
     public interface ITypedHubClient
     {
-
+        Task UserJoined(string userName);
     }
 }

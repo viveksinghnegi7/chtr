@@ -16,19 +16,22 @@ namespace chtr.server.Controllers
     public class UserController : Controller
     {
         private readonly IUserRepository _userRepository;
-        private readonly IHubContext<ChatHub> _chatHub;
+        //private readonly IHubContext<ChatHub> _chatHub;
+        IHubContext<ChatHub, ITypedHubClient> _hubContext;
+        private readonly ChatHub _chatHub = new ChatHub();
 
-        public UserController(IUserRepository userRepository, IHubContext<ChatHub> chatHub)
+        public UserController(IUserRepository userRepository, IHubContext<ChatHub, ITypedHubClient> hubContext)
         {
             _userRepository = userRepository;
-            _chatHub = chatHub;
+            _hubContext = hubContext;
         }
 
         [HttpPost]
         [Route("register")]
         public async Task RegisterUserAsync([FromBody] string userName)
         {
-            await _chatHub.Clients.All.SendAsync("UserJoined", userName);
+            await _hubContext.Clients.All.UserJoined(userName);
+            //await _chatHub.UserJoined(userName);
         }
 
         [HttpGet]

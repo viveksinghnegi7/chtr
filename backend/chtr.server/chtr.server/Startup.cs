@@ -6,6 +6,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using chtr.server.Hubs;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -24,8 +25,6 @@ namespace chtr.server
 
         public IServiceProvider ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR();
-            services.AddMvc().AddControllersAsServices();
             services.AddCors(s => s.AddPolicy("Cors", policy =>
             {
                 //remove for production code..
@@ -33,13 +32,21 @@ namespace chtr.server
                 policy.AllowAnyMethod();
                 policy.WithOrigins("http://localhost:4200");
                 policy.AllowCredentials();
+                policy.AllowAnyOrigin();
             }));
+
+            services.AddMvc().AddControllersAsServices();
+            services.AddSignalR(cfg =>
+            {
+                cfg.EnableDetailedErrors = true;
+            });
+           
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ApplicationModule());
             builder.Populate(services);
 
-            var container = builder.Build();                
+            var container = builder.Build();
             return new AutofacServiceProvider(container);
         }
 
@@ -51,14 +58,13 @@ namespace chtr.server
             }
 
             app.UseCors("Cors");
-
             app.UseSignalR(cfg =>
             {
-                cfg.MapHub<ChatHub>("/Chat");
+                cfg.MapHub<ChatHub>("/chat");
             });
 
             app.UseMvc();
-           
+
         }
     }
 }

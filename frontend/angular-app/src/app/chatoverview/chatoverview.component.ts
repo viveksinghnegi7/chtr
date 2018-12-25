@@ -12,6 +12,7 @@ export class ChatoverviewComponent implements OnInit {
   constructor(userService : UserService, private notificationService : NotificationService) { }
 
   ngOnInit() {
+      this.notificationService.subscribeToGlobalEvents();
       this.notificationService.registerUser("Tobias");
   }
 }
