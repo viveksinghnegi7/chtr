@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace chtr.server.Contracts
 {
-    public interface ITypedHubClient
+    public class Message
     {
-        Task UserJoined(string userName);
-        Task Say(Message message);
+        public string Username { get; set; }
+        public string Content { get; set; }
     }
 }

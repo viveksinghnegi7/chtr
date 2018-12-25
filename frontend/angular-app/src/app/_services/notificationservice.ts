@@ -26,6 +26,10 @@ export class NotificationService {
             console.log("SignalR event happend");
             console.log("userName: " + userName);
         });
+
+        this._hubConnection.on("Say", (message:any) => {
+            console.log(message.username + ": " + message.content);
+        });
     }
 
     registerUser(userName : string){
@@ -34,7 +38,6 @@ export class NotificationService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         
-   
         this.http.post("http://localhost:57255/api/users/register", JSON.stringify(userName), { headers: headers})
                  .subscribe(resp => console.log(resp));
     }
