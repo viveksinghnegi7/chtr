@@ -22,6 +22,8 @@ import { SiteFooterComponent } from './_layout/site-footer/site-footer.component
 import {APP_BASE_HREF} from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import {HttpModule} from '@angular/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -45,7 +47,8 @@ import {HttpModule} from '@angular/http';
     MatButtonModule,
     MatToolbarModule,
     HttpClientModule,
-    HttpModule
+    HttpModule,
+    MatSnackBarModule
   ],
   providers: [
     UserService,

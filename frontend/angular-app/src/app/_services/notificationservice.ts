@@ -2,6 +2,7 @@ import { Injectable } from "../../../node_modules/@angular/core";
 import { HubConnection, HubConnectionBuilder } from '@aspnet/signalr';
 import { HttpClientModule, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { Http, Headers, Response, URLSearchParams, RequestOptions } from '@angular/http';
+import { MatSnackBar } from "@angular/material";
 
 @Injectable()
 export class NotificationService {
@@ -9,9 +10,9 @@ export class NotificationService {
     private _hubConnection : HubConnection;
     private baseurl : string  = "http://localhost:57255/";
     private baseApiUrl : string = this.baseurl + "api/";
-    public chatHubUrl : string = this.baseurl + "chat";
+    private chatHubUrl : string = this.baseurl + "chat";
+    constructor(private http : Http, private snackbar : MatSnackBar) {
 
-    constructor(private http : Http) {
         let hubConnectionBuilder = new HubConnectionBuilder().withUrl(this.chatHubUrl);
         this._hubConnection = hubConnectionBuilder.build();
     }
@@ -23,12 +24,13 @@ export class NotificationService {
         .catch(err => console.log("Error connecting to SignalR: " + err));
         
         this._hubConnection.on("UserJoined", (userName:string) => {
-            console.log("SignalR event happend");
-            console.log("userName: " + userName);
+            this.snackbar.open(userName + " joined the converstation..", "", {
+                duration: 5000
+            });
         });
 
         this._hubConnection.on("Say", (message:any) => {
-            console.log(message.username + ": " + message.content);
+            this.snackbar.open(message.username + ": " + message.content);
         });
     }
 
