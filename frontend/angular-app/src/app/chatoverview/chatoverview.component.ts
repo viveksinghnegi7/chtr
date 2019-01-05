@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserService} from '../_services/userservice';
 import {NotificationService} from '../_services/notificationservice';
+import { Chat } from '../shared/models/chat';
 
 @Component({
   selector: 'app-chatoverview',
@@ -9,9 +10,18 @@ import {NotificationService} from '../_services/notificationservice';
 })
 export class ChatoverviewComponent implements OnInit {
 
-  constructor(userService : UserService, private notificationService : NotificationService) { }
+  constructor(private userService : UserService, private notificationService : NotificationService) { }
+
+  chatMessage : string;
 
   ngOnInit() {
-      this.notificationService.subscribeToGlobalEvents();
+      this.notificationService.subscribe();
+  }
+
+  onSay(){
+    let chat = new Chat();
+    chat.userName = this.userService.getLoggedInUser();
+    chat.content = this.chatMessage;
+    this.notificationService.say(chat);
   }
 }

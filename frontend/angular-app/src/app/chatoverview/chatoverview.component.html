@@ -1,3 +1,7 @@
-<p>
-  chatoverview works!
-</p>
+<div class="chatMessageBox">
+  <mat-form-field>
+    <input matInput placeholder="Say something.." [(ngModel)]="chatMessage">
+</mat-form-field>
+
+</div>
+<button color="primary" id="loginBtn" (click)="onSay()" mat-raised-button>Submit</button>  
