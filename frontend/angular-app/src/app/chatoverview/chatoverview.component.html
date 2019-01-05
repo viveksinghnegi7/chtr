@@ -1,7 +1,13 @@
-<div class="chatMessageBox">
-  <mat-form-field>
-    <input matInput placeholder="Say something.." [(ngModel)]="chatMessage">
-</mat-form-field>
-
+<div class="chat">
+  <div class="chatMessageBox">
+    <mat-form-field>
+      <input matInput placeholder="Say something.." [(ngModel)]="chatMessage">
+    </mat-form-field>
+  </div>
+  <div class="submitButton">
+    <button color="primary" (click)="onSay()" mat-raised-button>Submit</button>
+  </div>
+  <div *ngFor="let message of chatMessages">
+      {{ message }}
+  </div>
 </div>
-<button color="primary" id="loginBtn" (click)="onSay()" mat-raised-button>Submit</button>  

@@ -5,6 +5,7 @@ import { Http, Headers, Response, URLSearchParams, RequestOptions } from '@angul
 import { MatSnackBar } from "@angular/material";
 import { Chat } from "../shared/models/chat";
 import { UserService } from "./userservice";
+import { EventEmitter } from '@angular/core';
 
 @Injectable()
 export class NotificationService {
@@ -14,10 +15,12 @@ export class NotificationService {
     private baseApiUrl : string = this.baseurl + "api/";
     private chatHubUrl : string = this.baseurl + "chat";
 
-    constructor(private http : Http, private snackbar : MatSnackBar, private userService : UserService) {
+    public chatMessageEmitter$: EventEmitter<Chat>;
 
+    constructor(private http : Http, private snackbar : MatSnackBar, private userService : UserService) {
         let hubConnectionBuilder = new HubConnectionBuilder().withUrl(this.chatHubUrl);
         this._hubConnection = hubConnectionBuilder.build();
+        this.chatMessageEmitter$ = new EventEmitter();
     }
 
     subscribe() : void {
@@ -33,14 +36,9 @@ export class NotificationService {
         });
 
         this._hubConnection.on("Say", (message:any) => {
-            let loggedInUser = this.userService.getLoggedInUser();
-            console.log("User: " + message.username + " said something. Logged in user is " + this.userService.getLoggedInUser())
-            
-            if(message.userName !== loggedInUser){
-                this.snackbar.open(message.username + ": " + message.content, "", {
-                    duration:5000
-                });
-            }
+            let chat = new Chat(message.username, message.content);
+            console.log(chat);
+            this.chatMessageEmitter$.emit(chat);
         });
     }
 
