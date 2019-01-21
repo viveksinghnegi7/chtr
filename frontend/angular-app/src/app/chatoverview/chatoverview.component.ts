@@ -22,7 +22,6 @@ export class ChatoverviewComponent implements OnInit {
       this.notificationService.chatMessageEmitter$.subscribe(chat => {
         console.log(chat);
         this.chatMessages.push(chat.Username + " said: " + chat.content);
-        
       });
   }
 
