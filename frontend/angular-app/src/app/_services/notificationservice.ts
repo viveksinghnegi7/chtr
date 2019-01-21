@@ -6,18 +6,18 @@ import { MatSnackBar } from "@angular/material";
 import { Chat } from "../shared/models/chat";
 import { UserService } from "./userservice";
 import { EventEmitter } from '@angular/core';
+import {CONFIG} from '../app.config';
 
 @Injectable()
 export class NotificationService {
 
     private _hubConnection : HubConnection;
-    private baseurl : string  = "http://localhost:57256/";
-    private baseApiUrl : string = this.baseurl + "api/";
-    private chatHubUrl : string = this.baseurl + "chat";
-
+    private baseurl : string  = CONFIG.apiURL;
+    private chatHubUrl : string = CONFIG.signalRBase + "/chat";
     public chatMessageEmitter$: EventEmitter<Chat>;
 
     constructor(private http : Http, private snackbar : MatSnackBar, private userService : UserService) {
+        console.log("Chathub url: " + this.chatHubUrl);
         let hubConnectionBuilder = new HubConnectionBuilder().withUrl(this.chatHubUrl);
         this._hubConnection = hubConnectionBuilder.build();
         this.chatMessageEmitter$ = new EventEmitter();
@@ -42,21 +42,17 @@ export class NotificationService {
         });
     }
 
-    registerUser(userName : string){
-        let url = this.baseApiUrl + "users/register";
-        
+    registerUser(userName : string){ 
         let headers = new Headers();
         headers.append('Content-Type','application/json');
-        
-        this.http.post("http://localhost:57256/api/users/register", JSON.stringify(userName), { headers: headers})
+        this.http.post(this.baseurl + "/users/register", JSON.stringify(userName), { headers: headers})
                  .subscribe(resp => console.log(resp));
     }
 
     say(chat : Chat) {
-        let url = this.baseApiUrl + "/chat/say";
         let headers = new Headers();
         headers.append('Content-Type','application/json');
-        this.http.post("http://localhost:57256/api/chat/say", JSON.stringify(chat), { headers: headers})
+        this.http.post(this.baseurl + "/chat/say", JSON.stringify(chat), { headers: headers})
         .subscribe(resp => console.log(resp));
     }
 }
