@@ -5,7 +5,7 @@ import { Http, Headers, Response, URLSearchParams, RequestOptions } from '@angul
 export class UserService {
 
     private activeUser : string;
-    private baseurl : string  = "http://localhost:57255/api";
+    private baseurl : string  = "http://localhost:57256/api";
 
     constructor(private http : Http) {
         
@@ -18,7 +18,7 @@ export class UserService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         
-        this.http.post("http://localhost:57255/api/users/register", JSON.stringify(this.activeUser), { headers: headers})
+        this.http.post("http://localhost:57256/api/users/register", JSON.stringify(this.activeUser), { headers: headers})
                  .subscribe(resp => console.log(resp));
     }
 

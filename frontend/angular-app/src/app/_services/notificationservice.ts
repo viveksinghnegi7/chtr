@@ -11,7 +11,7 @@ import { EventEmitter } from '@angular/core';
 export class NotificationService {
 
     private _hubConnection : HubConnection;
-    private baseurl : string  = "http://localhost:57255/";
+    private baseurl : string  = "http://localhost:57256/";
     private baseApiUrl : string = this.baseurl + "api/";
     private chatHubUrl : string = this.baseurl + "chat";
 
@@ -48,7 +48,7 @@ export class NotificationService {
         let headers = new Headers();
         headers.append('Content-Type','application/json');
         
-        this.http.post("http://localhost:57255/api/users/register", JSON.stringify(userName), { headers: headers})
+        this.http.post("http://localhost:57256/api/users/register", JSON.stringify(userName), { headers: headers})
                  .subscribe(resp => console.log(resp));
     }
 
@@ -56,7 +56,7 @@ export class NotificationService {
         let url = this.baseApiUrl + "/chat/say";
         let headers = new Headers();
         headers.append('Content-Type','application/json');
-        this.http.post("http://localhost:57255/api/chat/say", JSON.stringify(chat), { headers: headers})
+        this.http.post("http://localhost:57256/api/chat/say", JSON.stringify(chat), { headers: headers})
         .subscribe(resp => console.log(resp));
     }
 }
