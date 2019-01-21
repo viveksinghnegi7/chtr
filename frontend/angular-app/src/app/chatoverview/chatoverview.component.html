@@ -1,5 +1,5 @@
 <div class="chat">
-  <div class="chatMessageBox">
+  <!--<div class="chatMessageBox">
     <mat-form-field>
       <input matInput placeholder="Say something.." [(ngModel)]="chatMessage">
     </mat-form-field>
@@ -9,5 +9,36 @@
   </div>
   <div *ngFor="let message of chatMessages">
       {{ message }}
+  </div>-->
+
+
+ <!-- <div id="content" *ngFor="let message of chatMessages">
+    {{ message }}
   </div>
-</div>
+  <div id="footer">
+    <mat-form-field class="example-full-width">
+      <input matInput placeholder="Say something.." [(ngModel)]="chatMessage">
+    </mat-form-field>
+    <button color="primary" (click)="onSay()" mat-raised-button>Submit</button>
+  </div>
+  -->
+
+  <div class="container">
+    
+  
+    <nav>
+     
+    </nav>
+  
+    <main>
+        <div id="content" *ngFor="let message of chatMessages">
+            {{ message }}
+          </div>
+    </main>
+  
+    <footer>
+      <input type="text" style="border: none; width:100%;" 
+             [(ngModel)]="chatMessage" placeholder="Say something"
+             (keydown.enter)="onSubmitChatMessage()">
+    </footer>
+  </div>

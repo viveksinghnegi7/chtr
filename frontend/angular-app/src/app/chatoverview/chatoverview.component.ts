@@ -7,7 +7,7 @@ import { EventEmitter } from '@angular/core';
 @Component({
   selector: 'app-chatoverview',
   templateUrl: './chatoverview.component.html',
-  styleUrls: ['./chatoverview.component.sass']
+  styleUrls: ['./chatoverview.component.scss']
 })
 export class ChatoverviewComponent implements OnInit {
   
@@ -29,5 +29,10 @@ export class ChatoverviewComponent implements OnInit {
     let user = this.userService.getLoggedInUser();
     let chat = new Chat(user, this.chatMessage);
     this.notificationService.say(chat);
+  }
+
+  onSubmitChatMessage() {
+    this.onSay();
+    this.chatMessage = '';
   }
 }
