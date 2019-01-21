@@ -17,7 +17,6 @@ export class NotificationService {
     public chatMessageEmitter$: EventEmitter<Chat>;
 
     constructor(private http : Http, private snackbar : MatSnackBar, private userService : UserService) {
-        console.log("Chathub url: " + this.chatHubUrl);
         let hubConnectionBuilder = new HubConnectionBuilder().withUrl(this.chatHubUrl);
         this._hubConnection = hubConnectionBuilder.build();
         this.chatMessageEmitter$ = new EventEmitter();
@@ -37,7 +36,6 @@ export class NotificationService {
 
         this._hubConnection.on("Say", (message:any) => {
             let chat = new Chat(message.username, message.content);
-            console.log(chat);
             this.chatMessageEmitter$.emit(chat);
         });
     }
