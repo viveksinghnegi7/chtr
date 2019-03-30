@@ -13,12 +13,17 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations'
 import {MatButtonModule} from '@angular/material';
 import { ChatoverviewComponent } from './chatoverview/chatoverview.component';
 import {UserService} from './_services/userservice';
+import {NotificationService} from './_services/notificationservice';
 import { AppLayoutComponent } from './_layout/app-layout/app-layout.component';
 import { SiteLayoutComponent } from './_layout/site-layout/site-layout.component';
 import { AppHeaderComponent } from './_layout/app-header/app-header.component';
 import { SiteHeaderComponent } from './_layout/site-header/site-header.component';
 import { SiteFooterComponent } from './_layout/site-footer/site-footer.component';
 import {APP_BASE_HREF} from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import {HttpModule} from '@angular/http';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
 
 @NgModule({
   declarations: [
@@ -40,11 +45,14 @@ import {APP_BASE_HREF} from '@angular/common';
     MatInputModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatToolbarModule
+    MatToolbarModule,
+    HttpClientModule,
+    HttpModule,
+    MatSnackBarModule
   ],
   providers: [
     UserService,
-
+    NotificationService
   ],
   bootstrap: [AppComponent]
 })

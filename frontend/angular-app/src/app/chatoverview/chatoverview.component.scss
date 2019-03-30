@@ -1,0 +1,53 @@
+.container {
+    display: grid;
+  
+    grid-template-areas:
+      "nav content"
+      "footer footer";
+  
+    grid-template-columns: 200px 1fr;
+    grid-template-rows: 1fr auto;
+    height: 91vh;
+    padding: 10px;
+  }
+
+  nav {
+    grid-area: nav;
+    margin-left: 0.5rem;
+  }
+  
+  main {
+    grid-area: content;
+    margin: 20px 0px;
+  }
+  
+  footer {
+    grid-area: footer;
+    border-radius: 10px;
+    border: 1.5px solid #34619f;
+    padding: 10px; 
+    width: 95%;
+    height: 20px;
+    margin: 5px -3px;
+  }
+
+  textarea:focus, input:focus{
+    outline: none;
+}
+
+  @media (max-width: 790px) {
+    .container {
+      grid-template-areas:
+        "content"
+        "footer";
+  
+      grid-template-columns: 1fr;
+      grid-template-rows:
+        1fr /* Content */
+        auto; /* Footer */
+    }
+  
+    nav, aside {
+      margin: 0;
+    }
+  }
