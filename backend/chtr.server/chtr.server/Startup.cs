@@ -1,16 +1,16 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
+using chtr.server.api;
+using chtr.server.api.Configuration;
+using chtr.server.data.Entities;
 using chtr.server.Hubs;
+using GraphiQl;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-
 
 namespace chtr.server
 {
@@ -27,7 +27,6 @@ namespace chtr.server
         {
             services.AddCors(s => s.AddPolicy("Cors", policy =>
             {
-                //remove for production code..
                 policy.AllowAnyHeader();
                 policy.AllowAnyMethod();
                 policy.WithOrigins("http://localhost:4200");
@@ -35,6 +34,8 @@ namespace chtr.server
                 policy.AllowAnyOrigin();
             }));
 
+            var connectionString = Configuration.GetConnectionString("DatabaseConnection");
+            services.AddDbContext<ChtrDbContext>(options => options.UseSqlServer(connectionString));
             services.AddMvc().AddControllersAsServices();
             services.AddSignalR(cfg =>
             {
@@ -44,9 +45,11 @@ namespace chtr.server
 
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ApplicationModule());
+            builder.RegisterModule(new ApiModule());
             builder.Populate(services);
 
             var container = builder.Build();
+           
             return new AutofacServiceProvider(container);
         }
 
@@ -63,8 +66,14 @@ namespace chtr.server
                 cfg.MapHub<ChatHub>("/chat");
             });
 
+            app.UseGraphiQl(Api.GraphQlPath);
             app.UseMvc();
 
+            using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = scope.ServiceProvider.GetRequiredService<ChtrDbContext>();
+                context.Database.EnsureCreated();
+            }
         }
     }
 }

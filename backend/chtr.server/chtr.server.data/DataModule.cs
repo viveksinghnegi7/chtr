@@ -1,14 +1,12 @@
-﻿using Autofac;
-using chtr.server.Contracts;
-using chtr.server.data.Infrastructure;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using Autofac;
+using chtr.server.data.Infrastructure;
 
-namespace chtr.server
+namespace chtr.server.data
 {
-    public class ApplicationModule : Module
+    public class DataModule : Autofac.Module
     {
         protected override void Load(ContainerBuilder builder)
         {
