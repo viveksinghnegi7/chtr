@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Autofac;
 using chtr.server.data.Infrastructure;
+using chtr.server.data.Repositories;
 
 namespace chtr.server.data
 {
@@ -12,6 +13,7 @@ namespace chtr.server.data
         {
             base.Load(builder);
             builder.RegisterType<RoomRepository>().As<IRoomRepository>();
+            builder.RegisterType<UserRepository>().As<IUserRepository>();
         }
     }
 }

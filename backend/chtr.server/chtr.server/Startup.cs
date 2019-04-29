@@ -3,6 +3,7 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using chtr.server.api;
 using chtr.server.api.Configuration;
+using chtr.server.data;
 using chtr.server.data.Entities;
 using chtr.server.Hubs;
 using GraphiQl;
@@ -46,6 +47,7 @@ namespace chtr.server
             var builder = new ContainerBuilder();
             builder.RegisterModule(new ApplicationModule());
             builder.RegisterModule(new ApiModule());
+            builder.RegisterModule(new DataModule());
             builder.Populate(services);
 
             var container = builder.Build();
