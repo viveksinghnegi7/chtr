@@ -17,10 +17,10 @@ namespace chtr.server.api.GraphQL.Queries
 
             Field<RoomType>(
                 name: "Room",
-                arguments: new QueryArguments(new QueryArgument<GuidGraphType>() { Name = "Id" }),
+                arguments: new QueryArguments(new QueryArgument<GuidGraphType>() { Name = "id" }),
                 resolve: ctx =>
                 {
-                    var id = ctx.GetArgument<Guid>("Id");
+                    var id = ctx.GetArgument<Guid>("id");
                     return _roomRepository.GetRoom(id);
                 });
         }
