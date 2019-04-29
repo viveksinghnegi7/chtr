@@ -8,5 +8,6 @@ namespace chtr.server.data.Repositories
     public interface IUserRepository
     {
         User GetUser(Guid id);
+        IEnumerable<User> GetUsersInRoom(Guid id);
     }
 }

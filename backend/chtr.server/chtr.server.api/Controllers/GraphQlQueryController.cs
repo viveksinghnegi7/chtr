@@ -18,14 +18,16 @@ namespace chtr.server.api.Controllers
     public class GraphQlQueryController : Controller
     {
         private readonly IComponentContext _context;
+        private readonly ISchema _schema;
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
         private readonly IDocumentExecuter _documentExecuter;
 
-        public GraphQlQueryController(IComponentContext context, IRoomRepository roomRepository, IUserRepository userRepository,
-            IDocumentExecuter documentExecuter)
+        public GraphQlQueryController(IComponentContext context, ISchema schema, IRoomRepository roomRepository, 
+                                      IUserRepository userRepository, IDocumentExecuter documentExecuter)
         {
             _context = context;
+            _schema = schema;
             _roomRepository = roomRepository;
             _userRepository = userRepository;
             _documentExecuter = documentExecuter;
@@ -34,11 +36,9 @@ namespace chtr.server.api.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]GraphQlQuery gQlQuery)
         {
-            //var query = _context.GetQuery(gQlQuery.QueryType);
-            var schema = new Schema { Query = new RoomQuery(_roomRepository, _userRepository) };
             var result = await _documentExecuter.ExecuteAsync(options =>
             {
-                options.Schema = schema;
+                options.Schema = _schema;
                 options.Query = gQlQuery.Query;
                 options.Inputs = gQlQuery.Variables;
             });

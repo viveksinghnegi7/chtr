@@ -3,9 +3,6 @@ using chtr.server.data.Infrastructure;
 using chtr.server.data.Repositories;
 using GraphQL.Types;
 using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Linq;
 
 namespace chtr.server.api.GraphQL.Queries
 {

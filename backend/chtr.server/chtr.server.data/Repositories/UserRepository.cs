@@ -1,6 +1,7 @@
 ﻿using System;
 using chtr.server.data.Entities;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace chtr.server.data.Repositories
 {
@@ -16,6 +17,12 @@ namespace chtr.server.data.Repositories
         public User GetUser(Guid id)
         {
             return _context.Users.FirstOrDefault(p => p.Id == id);
+        }
+
+        public IEnumerable<User> GetUsersInRoom(Guid id)
+        {
+            var rooms = _context.Rooms.Where(p => p.Id == id).ToList();
+            return rooms.SelectMany(p => p.UserRoom.Select(r => r.User));
         }
     }
 }

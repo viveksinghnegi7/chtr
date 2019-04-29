@@ -3,10 +3,12 @@ using Autofac;
 using Autofac.Extensions.DependencyInjection;
 using chtr.server.api;
 using chtr.server.api.Configuration;
+using chtr.server.api.GraphQL.Types;
 using chtr.server.data;
 using chtr.server.data.Entities;
 using chtr.server.Hubs;
 using GraphiQl;
+using GraphQL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -42,16 +44,21 @@ namespace chtr.server
             {
                 cfg.EnableDetailedErrors = true;
             });
-           
+
 
             var builder = new ContainerBuilder();
+            builder.Register<IDependencyResolver>(c =>
+            {
+                var context = c.Resolve<IComponentContext>();
+                return new FuncDependencyResolver(type => context.Resolve(type));
+            });
             builder.RegisterModule(new ApplicationModule());
             builder.RegisterModule(new ApiModule());
             builder.RegisterModule(new DataModule());
             builder.Populate(services);
 
             var container = builder.Build();
-           
+
             return new AutofacServiceProvider(container);
         }
 
