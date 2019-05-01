@@ -38,7 +38,7 @@ namespace chtr.server
             }));
 
             var connectionString = Configuration.GetConnectionString("DatabaseConnection");
-            services.AddDbContext<ChtrDbContext>(options => options.UseSqlServer(connectionString));
+            services.AddDbContext<ChtrDbContext>(options => options.UseMySql(connectionString));
             services.AddMvc().AddControllersAsServices();
             services.AddSignalR(cfg =>
             {
