@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using chtr.server.data.Entities;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
@@ -25,7 +24,8 @@ namespace chtr.server.data.Infrastructure
 
         public IEnumerable<Room> GetRooms()
         {
-            throw new NotImplementedException();
+            return _dbContext.Rooms.Include(r => r.UserRoom)
+                                    .ThenInclude(u => u.User);
         }
     }
 }

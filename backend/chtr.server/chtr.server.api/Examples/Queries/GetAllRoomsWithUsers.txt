@@ -1,0 +1,9 @@
+﻿{
+  rooms {
+    name
+    users {
+      userName
+      fullName
+    }
+  }
+}

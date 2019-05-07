@@ -1,0 +1,6 @@
+﻿{
+  users {
+	userName
+    fullName
+  }
+}

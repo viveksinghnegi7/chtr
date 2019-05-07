@@ -14,6 +14,11 @@ namespace chtr.server.data.Repositories
             _context = context;
         }
 
+        public IEnumerable<User> GetAll()
+        {
+            return _context.Users.ToList();
+        }
+
         public User GetUser(Guid id)
         {
             return _context.Users.FirstOrDefault(p => p.Id == id);

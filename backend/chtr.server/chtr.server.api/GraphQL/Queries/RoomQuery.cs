@@ -25,6 +25,12 @@ namespace chtr.server.api.GraphQL.Queries
                     var room = _roomRepository.GetRoom(id);
                     return room;
                 });
+            Field<ListGraphType<RoomType>>(
+                name: "Rooms",
+                resolve: ctx => 
+                {
+                    return _roomRepository.GetRooms();
+                });
             Field<UserType>(
                 name: "User",
                 arguments: new QueryArguments(new QueryArgument<GuidGraphType>() { Name = "id" }),
@@ -34,6 +40,12 @@ namespace chtr.server.api.GraphQL.Queries
                     var user = _userRepository.GetUser(id);
                     return user;
                 });
+            Field<ListGraphType<UserType>>(
+                name: "Users",
+                resolve: ctx =>
+                 {
+                     return _userRepository.GetAll();
+                 });
         }
     }
 }
