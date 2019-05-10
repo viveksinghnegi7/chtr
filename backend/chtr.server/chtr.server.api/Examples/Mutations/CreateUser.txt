@@ -1,0 +1,6 @@
+﻿mutation {
+  addUser(user: {userName: "Trebias", fullName: "Tobias Moe Thorstensen"}) {
+    userName
+    fullName
+  }
+}

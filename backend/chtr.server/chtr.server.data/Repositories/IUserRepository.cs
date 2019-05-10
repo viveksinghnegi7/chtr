@@ -10,5 +10,7 @@ namespace chtr.server.data.Repositories
         User GetUser(Guid id);
         IEnumerable<User> GetUsersInRoom(Guid id);
         IEnumerable<User> GetAll();
+
+        void Create(User user);
     }
 }

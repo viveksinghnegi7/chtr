@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using Autofac;
 using chtr.server.api.GraphQL.Extensions;
+using chtr.server.api.GraphQL.Mutations;
 using chtr.server.api.GraphQL.Queries;
 using chtr.server.api.GraphQL.Schemas;
 using chtr.server.api.GraphQL.Types;
@@ -20,6 +21,8 @@ namespace chtr.server.api
             builder.RegisterType<BaseQuery>().AsSelf();
             builder.RegisterType<RoomType>().AsSelf();
             builder.RegisterType<UserType>().AsSelf();
+            builder.RegisterType<BaseMutation>().AsSelf();
+            builder.RegisterType<UserInputType>().AsSelf();
             base.Load(builder);
         }
     }

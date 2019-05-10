@@ -15,8 +15,4 @@
     <ProjectReference Include="..\chtr.server.data\chtr.server.data.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Examples\Mutations\" />
-  </ItemGroup>
-
 </Project>
