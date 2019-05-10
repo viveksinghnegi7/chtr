@@ -6,12 +6,12 @@ using System;
 
 namespace chtr.server.api.GraphQL.Queries
 {
-    public class RoomQuery : ObjectGraphType
+    public class BaseQuery : ObjectGraphType
     {
         private readonly IRoomRepository _roomRepository;
         private readonly IUserRepository _userRepository;
 
-        public RoomQuery(IRoomRepository roomRepository, IUserRepository userRepository)
+        public BaseQuery(IRoomRepository roomRepository, IUserRepository userRepository)
         {
             _roomRepository = roomRepository;
             _userRepository = userRepository;

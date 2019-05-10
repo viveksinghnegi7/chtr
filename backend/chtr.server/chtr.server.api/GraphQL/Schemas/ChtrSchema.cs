@@ -1,9 +1,7 @@
-﻿using chtr.server.api.GraphQL.Queries;
+﻿using chtr.server.api.GraphQL.Mutations;
+using chtr.server.api.GraphQL.Queries;
 using GraphQL;
 using GraphQL.Types;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace chtr.server.api.GraphQL.Schemas
 {
@@ -11,7 +9,8 @@ namespace chtr.server.api.GraphQL.Schemas
     {
         public ChtrSchema(IDependencyResolver dependencyResolver) : base(dependencyResolver)
         {
-            Query = dependencyResolver.Resolve<RoomQuery>();
+            Query = dependencyResolver.Resolve<BaseQuery>();
+            Mutation = dependencyResolver.Resolve<BaseMutation>();
         }
     }
 }

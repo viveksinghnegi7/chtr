@@ -17,7 +17,7 @@ namespace chtr.server.api
         {
             builder.RegisterType<DocumentExecuter>().As<IDocumentExecuter>();
             builder.RegisterType<ChtrSchema>().As<ISchema>();
-            builder.RegisterType<RoomQuery>().AsSelf();
+            builder.RegisterType<BaseQuery>().AsSelf();
             builder.RegisterType<RoomType>().AsSelf();
             builder.RegisterType<UserType>().AsSelf();
             base.Load(builder);
