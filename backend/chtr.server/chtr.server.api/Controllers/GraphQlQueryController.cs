@@ -39,7 +39,7 @@ namespace chtr.server.api.Controllers
                 _logger.LogError(result.Errors.ToString());
                 return BadRequest();
             }
-            _logger.LogInformation("Hello there!");
+            
             return Ok(result);
         }
     }
