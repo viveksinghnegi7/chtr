@@ -5,6 +5,7 @@ using chtr.server.data.Repositories;
 using GraphQL;
 using GraphQL.Types;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using System.Threading.Tasks;
 
 namespace chtr.server.api.Controllers
@@ -14,11 +15,13 @@ namespace chtr.server.api.Controllers
     {
         private readonly ISchema _schema;
         private readonly IDocumentExecuter _documentExecuter;
+        private readonly ILogger<GraphQlQueryController> _logger;
 
-        public GraphQlQueryController(ISchema schema,  IDocumentExecuter documentExecuter)
+        public GraphQlQueryController(ISchema schema, IDocumentExecuter documentExecuter, ILogger<GraphQlQueryController> logger)
         {
             _schema = schema;
             _documentExecuter = documentExecuter;
+            _logger = logger;
         }
 
         [HttpPost]
@@ -32,8 +35,11 @@ namespace chtr.server.api.Controllers
             });
 
             if (result.Errors?.Count > 0)
+            {
+                _logger.LogError(result.Errors.ToString());
                 return BadRequest();
-
+            }
+            _logger.LogInformation("Hello there!");
             return Ok(result);
         }
     }

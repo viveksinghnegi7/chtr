@@ -14,6 +14,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using ElasticsearchSinkOptions = Serilog.Sinks.Elasticsearch.ElasticsearchSinkOptions;
 
 namespace chtr.server
 {
@@ -22,6 +25,10 @@ namespace chtr.server
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            var elasticSearch = Configuration["ElasticConfiguration:Uri"];
+            Log.Logger = new LoggerConfiguration().Enrich.FromLogContext()
+                .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(
+                    new Uri(elasticSearch)) { AutoRegisterTemplate = true }).CreateLogger();
         }
 
         public IConfiguration Configuration { get; }
@@ -39,13 +46,11 @@ namespace chtr.server
 
             var connectionString = Configuration.GetConnectionString("DatabaseConnection");
             services.AddDbContext<ChtrDbContext>(options => options.UseMySql(connectionString));
-            //services.AddDbContext<ChtrDbContext>(options => options.UseInMemoryDatabase("db"));
             services.AddMvc().AddControllersAsServices();
             services.AddSignalR(cfg =>
             {
                 cfg.EnableDetailedErrors = true;
             });
-
 
             var builder = new ContainerBuilder();
             builder.Register<IDependencyResolver>(c =>
@@ -53,6 +58,7 @@ namespace chtr.server
                 var context = c.Resolve<IComponentContext>();
                 return new FuncDependencyResolver(type => context.Resolve(type));
             });
+
             builder.RegisterModule(new ApplicationModule());
             builder.RegisterModule(new ApiModule());
             builder.RegisterModule(new DataModule());
@@ -63,7 +69,7 @@ namespace chtr.server
             return new AutofacServiceProvider(container);
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -78,12 +84,7 @@ namespace chtr.server
 
             app.UseGraphiQl(Api.GraphQlPath);
             app.UseMvc();
-
-            //using (var scope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
-            //{
-            //    var context = scope.ServiceProvider.GetRequiredService<ChtrDbContext>();
-            //    context.Database.EnsureCreated();
-            //}
+            loggerFactory.AddSerilog();
         }
     }
 }
